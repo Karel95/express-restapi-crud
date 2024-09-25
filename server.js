@@ -6,6 +6,11 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 
+//Express settings:
+app.set('appName', 'Express App');
+app.set("port", process.env.PORT || 3000);
+
+
 let products = [];
 
 app.get("/", (req, res) => {
@@ -54,6 +59,5 @@ app.get("/products/:id", (req, res) => {
   res.json(productFound);
 });
 
-const port = 3000;
-app.listen(port);
-console.log(`Server listening on port ${port}`);
+app.listen(app.get('port'));
+console.log(`Server ${app.get('appName')} listening on port ${app.get('port')}`);
