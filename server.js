@@ -3,16 +3,19 @@ const morgan = require("morgan");
 
 const app = express();
 
-app.use(morgan("dev"));
-app.use(express.json());
-
-//Express settings:
+//Settings:
 app.set('appName', 'Express App');
 app.set("port", process.env.PORT || 3000);
+app.set('case sensitive routing', true);
+
+//Middlewares
+app.use(morgan("dev"));
+app.use(express.json());
 
 
 let products = [];
 
+//Routes
 app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
@@ -59,5 +62,6 @@ app.get("/products/:id", (req, res) => {
   res.json(productFound);
 });
 
+//Server
 app.listen(app.get('port'));
 console.log(`Server ${app.get('appName')} listening on port ${app.get('port')}`);
